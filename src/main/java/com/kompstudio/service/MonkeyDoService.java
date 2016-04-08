@@ -13,4 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/monkeydo")
 public class MonkeyDoService {
 
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public Task test() {
+        return new Task("this is a rest-test!");
+    }
 }
