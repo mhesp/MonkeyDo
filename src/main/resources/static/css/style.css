@@ -15,8 +15,73 @@
 
 .side-nav {
     width: 200px;
+    transform: translateX(0%);
 }
 
-main, footer {
+nav {
+    height: 100px;
+    padding-left: 20px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+main {
+    padding-left: 20px;
+    padding-bottom: 250px;
+}
+
+footer {
+    height: 200px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+#wrapper {
+    min-height: 100%;
+    position: relative;
     padding-left: 200px;
 }
+
+.task-container {
+    width: 350px;
+    height: 400px;
+}
+
+.content-task-container {
+    width: inherit;
+    height: 300px;
+    padding: 10px;
+}
+
+#category-cats {
+    background-color: lightsteelblue;
+}
+
+.header-task-container {
+    font-family: Roboto;
+    font-weight: bolder;
+    font-size: x-large;
+    text-align: center;
+}
+
+/*#top-nav {
+    padding-left: 100px;
+    height: auto;
+    margin: 0 auto;
+    padding-right: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    position: relative;
+}*/
+
+/*
+.container {
+    width: 100%;
+}
+*/
