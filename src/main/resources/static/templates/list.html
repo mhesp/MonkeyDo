@@ -1,8 +1,22 @@
 <div class="task-container">
-    <div class="header-task-container">
+    <!--<div class="header-task-container">
         <p>CATS</p>
-    </div>
-    <div class="content-task-container" id="category-cats">
-        <p>Test of category box</p>
+    </div>-->
+    <div class="content-task-container">
+        <div class="row">
+            <div class="input-field col s10">
+                <input id="last_name" type="text" class="validate" ng-model="task">
+                <label for="last_name">Write task here</label>
+            </div>
+            <div class="btn-add">
+                <a class="btn-floating"><i class="material-icons" ng-click="addTask(task)">add</i></a>
+            </div>
+        </div>
+        <div ng-repeat="task in tasks">
+            <p>
+                <input type="checkbox" id="task"/>
+                <label for="task">{{task}}</label>
+            </p>
+        </div>
     </div>
 </div>

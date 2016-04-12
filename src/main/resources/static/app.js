@@ -26,5 +26,15 @@ app.controller('mainCtrl', function($scope) {
 
 app.controller('listCtrl', function($scope, $routeParams) {
     $scope.owner = $routeParams.owner;
-    $scope.message = 'List screen for ' +  $scope.owner;
+
+    $scope.task = "";
+
+    $scope.tasks = [];
+
+    $scope.addTask = function(task) {
+        console.log(task);
+        $scope.tasks.push(task);
+        $scope.task = "";
+    };
+
 });

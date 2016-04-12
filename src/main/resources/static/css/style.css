@@ -19,8 +19,9 @@
 }
 
 nav {
-    height: 80px;
+    height: 60px;
     padding-left: 20px;
+    background-color: orange;
 }
 
 html, body {
@@ -32,6 +33,7 @@ html, body {
 main {
     padding-left: 20px;
     padding-bottom: 250px;
+    padding-top: 20px;
 }
 
 footer {
@@ -49,18 +51,24 @@ footer {
 }
 
 .task-container {
-    width: 350px;
-    height: 400px;
+    width: 550px;
+    height: 600px;
 }
 
 .content-task-container {
     width: inherit;
-    height: 300px;
+    height: inherit;
     padding: 10px;
+    background-color: lightsteelblue;
 }
 
-#category-cats {
-    background-color: lightsteelblue;
+.btn-floating {
+    text-align: center;
+    background-color: orange;
+}
+
+.btn-add {
+    padding: 20px;
 }
 
 .header-task-container {
@@ -74,15 +82,16 @@ footer {
     height: 85px;
 }
 
-/*#top-nav {
-    padding-left: 100px;
+#top-nav {
     height: auto;
     margin: 0 auto;
-    padding-right: 100px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding: auto;
     position: relative;
-}*/
+}
+
+#task {
+
+}
 
 /*
 .container {
