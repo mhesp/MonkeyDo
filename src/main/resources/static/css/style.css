@@ -9,6 +9,7 @@
 .icon-block {
   padding: 0 15px;
 }
+
 .icon-block .material-icons {
 	font-size: inherit;
 }
@@ -62,7 +63,9 @@ footer {
     background-color: lightsteelblue;
 }
 
-.btn-floating {
+
+
+#btn-add-task {
     text-align: center;
     background-color: orange;
 }
@@ -82,19 +85,10 @@ footer {
     height: 85px;
 }
 
-#top-nav {
-    height: auto;
-    margin: 0 auto;
-    padding: auto;
-    position: relative;
+label {
+    color: black;
 }
 
-#task {
-
+#add-list {
+    margin-bottom: 15px;
 }
-
-/*
-.container {
-    width: 100%;
-}
-*/
