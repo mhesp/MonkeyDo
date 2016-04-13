@@ -2,14 +2,14 @@
     <div class="content-task-container">
         <div class="row">
             <div class="input-field col s10">
-                <input id="last_name" type="text" class="validate" ng-model="task">
-                <label for="last_name">Write task here</label>
+                <input id="task_input" type="text" ng-model="task">
+                <label for="task_input">Write task here</label>
             </div>
             <div class="btn-add">
                 <a class="btn-floating" id="btn-add-task"><i class="material-icons" ng-click="addTask(task)">add</i></a>
             </div>
         </div>
-        <div ng-repeat="task in tasks track by $index">
+        <div class=show-tasks ng-repeat="task in tasks track by $index">
             <p>
                 <input type="checkbox" id="task-{{$index}}"/>
                 <label for="task-{{$index}}">{{task}}</label>
