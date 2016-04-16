@@ -1,14 +1,16 @@
 var app = angular.module('monkeyDo', ['ngRoute']);
 
 
+
+
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/ListMaria/:owner', {
-            templateUrl: 'templates/list.html',
+            templateUrl: 'templates/personal-space.html',
             controller: 'listCtrl'
         })
         .when('/ListKim/:owner', {
-            templateUrl: 'templates/list.html',
+            templateUrl: 'templates/personal-space.html',
             controller: 'listCtrl'
         })
         .when('/home', {
@@ -27,29 +29,29 @@ app.controller('mainCtrl', function($scope) {
 app.controller('listCtrl', function($scope, $routeParams) {
     $scope.owner = $routeParams.owner;
 
-    $scope.task = "";
-
-    $scope.tasks = [];
-
-    $scope.addTask = function(task) {
-        console.log(task);
-        $scope.tasks.push(task);
-        $scope.task = "";
+    $scope.lists = [];
+    $scope.addList = function(name) {
+        $scope.lists.push(name);
+        $scope.name = "";
     };
 
-    $scope.inputCounter = 0;
-    $scope.inputs = [{
-        id: 'input'
-    }];
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+        $('select').material_select();
+    });
 
-    $scope.cloneContainer = function() {
-        console.log("inside cloneContainer()")
-        $scope.inputTemplate = {
-            id: 'input-' + $scope.inputCounter,
-            name: ''
-        };
-        $scope.inputCounter += 1;
-        $scope.inputs.push($scope.inputTemplate);
+});
+
+app.directive('taskList', function() {
+    return {
+        templateUrl: 'templates/tasklist.html',
+        link: function (scope) {
+            scope.myList = [];
+            scope.addTask = function() {
+                scope.myList.push(scope.newtask);
+                scope.newtask = '';
+            }
+        }
     };
-
 });

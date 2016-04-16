@@ -1,0 +1,51 @@
+<header>
+    <!--Ng-hide when in home view! -->
+    <ul id="dropdown-top-nav-$scope.owner" class="dropdown-content">
+        <li><a href="#">add new list</a></li>
+        <li><a href="#">action</a></li>
+        <li><a href="#">action</a></li>
+    </ul>
+
+    <nav>
+        <div class="nav-wrapper" id="top-nav">
+            <ul class="right hide-on-med-and-down">
+                <li><a href="#">Info</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a ng-click="addList()">New list</a></li>
+                <!-- Modal Trigger -->
+                <button data-target="modal1" class="btn modal-trigger" id="modal-add-list">New list</button>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Create new list</h4>
+            <div class="input-field col s10">
+                <input id="list-name-input" type="text" ng-model="name">
+                <label for="list-name-input">Give name to list</label>
+            </div>
+            <div class="input-field col s10">
+                <select>
+                    <option value="" disabled selected>Choose category</option>
+                    <option value="1">Home</option>
+                    <option value="2">Work</option>
+                    <option value="3">Cats</option>
+                </select>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="addList(name)">Create list</a>
+        </div>
+    </div>
+
+    <!-- Lists of tasks -->
+    <div class="row">
+        <div class="col" ng-repeat="list in lists track by $index">
+            <div task-list="list"></div>
+        </div>
+    </div>
+</main>

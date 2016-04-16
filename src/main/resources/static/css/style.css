@@ -33,6 +33,7 @@ main {
     padding-left: 40px;
     width: 100%;
     overflow: hidden;
+    padding-top: 60px;
 }
 
 #wrapper {
@@ -43,8 +44,8 @@ main {
 /* List of tasks styling */
 .task-container {
     width: 550px;
-    padding-top: 60px;
     overflow: hidden;
+    padding-bottom: 30px;
 }
 
 .content-task-container {
@@ -71,6 +72,10 @@ main {
 
 
 /* Styling for input field */
+
+label {
+    color: black;
+}
 
 /* label color */
 .input-field label {
@@ -115,5 +120,19 @@ nav {
     box-shadow: none;
     background-color: transparent;
     color: black;
+    padding-right: 20px;
+}
+
+/* Modal add button */
+#modal-add-list {
+    background-color: orange;
+}
+
+#choose-category {
+    padding-left: 4px;
+}
+
+#list-header {
+    color: orange;
 }
 
