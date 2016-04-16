@@ -14,55 +14,18 @@
 <body ng-app="monkeyDo" ng-controller="mainCtrl">
 
 <div id="wrapper">
-  <header>
+
     <ul id="sidenav" class="side-nav fixed lighten-1">
-      <li><a id="home" class="white-text text-accent-1" href="#home">MonkeyDo</a> </li>
-      <br/><br/>
-      <li><a id="maria" class="white-text text-accent-1" href="#ListMaria/Maria"><b>Maria</b></a></li>
-      <li><a id="kim" class="white-text text-accent-1" href="#ListKim/Kim"><b>Kim</b></a></li>
-      <li><a id="maria-kim" class="white-text text-accent-1" href="#"><b>Maria & Kim</b></a></li>
+        <li><a id="home" class="white-text text-accent-1 active" href="#home">MonkeyDo</a> </li>
+        <br/><br/>
+        <li><a id="maria" class="white-text text-accent-1" href="#ListMaria/Maria"><b>Maria</b></a></li>
+        <li><a id="kim" class="white-text text-accent-1" href="#ListKim/Kim"><b>Kim</b></a></li>
+        <li><a id="maria-kim" class="white-text text-accent-1" href="#"><b>Maria & Kim</b></a></li>
     </ul>
 
-    <!--<nav>
-      <div class="nav-wrapper" id="top-nav">
-        &lt;!&ndash;<a href="#!" class="brand-logo">MonkeyDo!</a>&ndash;&gt;
-        <ul class="right hide-on-med-and-down">
-          <li><a href="sass.html">Test live edit</a></li>
-          <li><a href="badges.html">Info</a></li>
-        </ul>
-      </div>
-    </nav>-->
-
-     <!--<div class="row">
-         <div class="col s12">
-             <ul class="tabs">
-                 <li class="tab col s3"><a class="active" href="#/home">Home</a></li>
-                 <li class="tab col s3"><a href="#ListMaria/Maria">Maria</a></li>
-                 <li class="tab col s3"><a href="#ListKim/Kim">Kim</a></li>
-                 <li class="tab col s3"><a href="#test4">Maria&Kim</a></li>
-             </ul>
-         </div>
-     </div>-->
-  </header>
-
-  <main data-ng-view>
-  </main>
-
-  <!--<footer class="page-footer orange">
-    &lt;!&ndash;<div class="container">
-      <div class="row">
-        <div class="col s12">
-          <h5 class="white-text">About</h5>
-          <p class="  grey-text text-lighten-4">
-            MonkeyDo is created by KompStudio. An innovative and exciting new firm that consists of Maria, Skavlan, Kalle & Thermo.
-          </p>
-        </div>
-      </div>
-    </div>&ndash;&gt;
-    <div class="footer-copyright">
-      <div class="container">Made by KompStudio</div>
+    <div data-ng-view="">
     </div>
-  </footer>-->
+
 </div>
 
   <!--  Scripts-->

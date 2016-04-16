@@ -6,6 +6,7 @@
  * Made By MaterializeCSS.com
  */
 
+/* Icon styling */
 .icon-block {
   padding: 0 15px;
 }
@@ -14,56 +15,44 @@
 	font-size: inherit;
 }
 
+.center-dark-blue {
+    text-align: center;
+    color: #26a69a;
+}
+
+
+/* Side-nav */
 .side-nav {
     width: 150px;
     transform: translateX(0%);
     background-color: #26a69a;
 }
 
-nav {
-    height: 60px;
-    padding-left: 20px;
-    background-color: orange;
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-}
-
+/* Main page */
 main {
     padding-left: 40px;
-    /*padding-bottom: 250px;*/
-    padding-top: 20px;
-}
-
-footer {
-    height: 200px;
-    position: absolute;
     width: 100%;
-    bottom: 0;
-    left: 0;
+    overflow: hidden;
 }
 
 #wrapper {
-    min-height: 100%;
-    position: relative;
     padding-left: 150px;
+    overflow: hidden;
 }
 
+/* List of tasks styling */
 .task-container {
-    padding-top: 50px;
     width: 550px;
-    height: 600px;
+    padding-top: 60px;
+    overflow: hidden;
 }
 
 .content-task-container {
     width: inherit;
     height: inherit;
-    padding: 10px;
-    /*background-color: lightsteelblue;*/
     border: solid #26a69a;
+    padding: 20px;
+    overflow: hidden;
 }
 
 .show-tasks {
@@ -76,28 +65,12 @@ footer {
 }
 
 .btn-add {
-    padding-left: 20px;
-    padding-top: 20px;
+    padding: 20px;
+    box-shadow: none;
 }
 
-.header-task-container {
-    font-family: Roboto;
-    font-weight: bolder;
-    font-size: x-large;
-    text-align: center;
-}
 
-footer {
-    height: 85px;
-}
-
-label {
-    color: black;
-}
-
-#add-list {
-    margin-bottom: 15px;
-}
+/* Styling for input field */
 
 /* label color */
 .input-field label {
@@ -120,7 +93,27 @@ label {
     color: #000;
 }
 
-.center-dark-blue {
-    text-align: center;
-    color: #26a69a;
+
+
+/* Styling for top-nav */
+#top-nav {
+    background-color: transparent;
 }
+
+#top-nav a {
+    color: black;
+
+}
+
+#top-nav a:hover {
+    color: black;
+}
+
+nav {
+    height: 60px;
+    padding-left: 20px;
+    box-shadow: none;
+    background-color: transparent;
+    color: black;
+}
+

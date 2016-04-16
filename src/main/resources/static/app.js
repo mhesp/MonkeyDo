@@ -37,4 +37,19 @@ app.controller('listCtrl', function($scope, $routeParams) {
         $scope.task = "";
     };
 
+    $scope.inputCounter = 0;
+    $scope.inputs = [{
+        id: 'input'
+    }];
+
+    $scope.cloneContainer = function() {
+        console.log("inside cloneContainer()")
+        $scope.inputTemplate = {
+            id: 'input-' + $scope.inputCounter,
+            name: ''
+        };
+        $scope.inputCounter += 1;
+        $scope.inputs.push($scope.inputTemplate);
+    };
+
 });
