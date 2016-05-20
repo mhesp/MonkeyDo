@@ -1,8 +1,5 @@
 var app = angular.module('monkeyDo', ['ngRoute']);
 
-
-
-
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
         .when('/ListMaria/:owner', {
@@ -22,17 +19,21 @@ app.config(['$routeProvider', function($routeProvider) {
         });
 }]);
 
+
 app.controller('mainCtrl', function($scope) {
     $scope.message = 'Home screen.'
 });
+
 
 app.controller('listCtrl', function($scope, $routeParams) {
     $scope.owner = $routeParams.owner;
 
     $scope.lists = [];
     $scope.addList = function(name) {
+        console.log("Name of list: " + name);
         $scope.lists.push(name);
         $scope.name = "";
+        console.log("Lists: " + $scope.lists);
     };
 
     $(document).ready(function(){
@@ -43,12 +44,18 @@ app.controller('listCtrl', function($scope, $routeParams) {
 
 });
 
+//TODO: Create list for done and undone tasks, give option to hide done tasks
+//TODO: Create option to delete tasks
+//TODO: Somehow show which category a list goes into
+//TODO: Have the possibility for a field where notes can be written freely (inside the to-do list)
+//TODO: Be able to sort lists by category or age 
 app.directive('taskList', function() {
     return {
         templateUrl: 'templates/tasklist.html',
         link: function (scope) {
             scope.myList = [];
             scope.addTask = function() {
+                console.log(scope.newtask);
                 scope.myList.push(scope.newtask);
                 scope.newtask = '';
             }
