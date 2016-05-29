@@ -56,9 +56,9 @@ main {
     overflow: hidden;
 }
 
-.show-tasks {
+/*.show-tasks {
     padding-left: 10px;
-}
+}*/
 
 #btn-add-task {
     text-align: center;
@@ -136,3 +136,15 @@ nav {
     color: orange;
 }
 
+#modal1 {
+    height: 250px;
+    width: 450px;
+}
+
+md-checkbox.md-checked ._md-icon {
+    background-color: orange;
+}
+
+md-checkbox.md-checked {
+    color: grey;
+}

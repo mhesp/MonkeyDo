@@ -1,4 +1,4 @@
-var app = angular.module('monkeyDo', ['ngRoute']);
+var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'ngMessages']);
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
@@ -54,11 +54,27 @@ app.directive('taskList', function() {
         templateUrl: 'templates/tasklist.html',
         link: function (scope) {
             scope.myList = [];
+            scope.selected = [];
             scope.addTask = function() {
-                console.log(scope.newtask);
+                console.log("newtask [" + scope.newtask + "]");
                 scope.myList.push(scope.newtask);
                 scope.newtask = '';
             }
+
+            scope.toggle = function(task, selected, index) {
+                var idx = selected.indexOf(index);
+                if (idx > -1) {
+                    selected.splice(idx, 1);
+                } else {
+                    selected.push(index);
+                }
+            };
+
+            scope.exists = function (task, selected, index) {
+                var idx = selected.indexOf(index);
+                return idx > -1;
+            };
+
         }
     };
 });

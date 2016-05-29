@@ -1,3 +1,11 @@
+<!--
+TODO: Save category (color-code for categories?)
+TODO: Add categories
+TODO: Save and load lists
+TODO: Be able to delete tasks
+TODO: Be able to delete lists
+TODO: Be able to hide finished tasks
+-->
 <header>
     <!--Ng-hide when in home view! -->
     <ul id="dropdown-top-nav-$scope.owner" class="dropdown-content">
@@ -9,11 +17,9 @@
     <nav>
         <div class="nav-wrapper" id="top-nav">
             <ul class="right hide-on-med-and-down">
-                <li><a href="#">Info</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a ng-click="addList()">New list</a></li>
                 <!-- Modal Trigger -->
                 <button data-target="modal1" class="btn modal-trigger" id="modal-add-list">New list</button>
+                <!--<li><a ng-click="save()">Save</a></li>-->
             </ul>
         </div>
     </nav>
@@ -27,15 +33,16 @@
             <div class="input-field col s10">
                 <input id="list-name-input" type="text" ng-model="name">
                 <label for="list-name-input">Give name to list</label>
+                <!--<span class="warning">Don't you want your list to have a name?</span>-->
             </div>
-            <div class="input-field col s10">
+            <!--<div class="input-field col s10">
                 <select>
                     <option value="" disabled selected>Choose category</option>
                     <option value="1">Home</option>
                     <option value="2">Work</option>
                     <option value="3">Cats</option>
                 </select>
-            </div>
+            </div>-->
         </div>
         <div class="modal-footer">
             <a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="addList(name)">Create list</a>

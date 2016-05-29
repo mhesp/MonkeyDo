@@ -10,11 +10,10 @@
                 <a class="btn-floating" id="btn-add-task"><i class="material-icons" ng-click="addTask()">add</i></a>
             </div>
         </div>
-        <div class=show-tasks ng-repeat="task in myList track by $index">
-            <p>
-                <input type="checkbox" id="task-{{$index}}-{{$parent.$index}}"/>
-                <label for="task-{{$index}}-{{$parent.$index}}">{{task}}</label>
-            </p>
+        <div class="show-tasks" ng-repeat="task in myList track by $index">
+            <label>
+                <md-checkbox ng-checked="exists(task, selected, $index)" ng-click="toggle(task, selected, $index)">{{ task }}</md-checkbox>
+            </label>
         </div>
     </div>
 </div>
