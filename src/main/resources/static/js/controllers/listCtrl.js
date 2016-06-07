@@ -1,31 +1,6 @@
-var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial']);
 
-app.config(['$routeProvider', function($routeProvider) {
-    $routeProvider
-        .when('/ListMaria/:owner', {
-            templateUrl: 'templates/personal-space.html',
-            controller: 'listCtrl'
-        })
-        .when('/ListKim/:owner', {
-            templateUrl: 'templates/personal-space.html',
-            controller: 'listCtrl'
-        })
-        .when('/home', {
-            templateUrl: 'templates/home.html',
-            controller: 'mainCtrl'
-        })
-        .otherwise({
-            redirectTo: '/home'
-        });
-}]);
-
-
-app.controller('mainCtrl', function($scope) {
-    $scope.message = 'Home screen.'
-});
-
-
-app.controller('listCtrl', function($scope, $routeParams) {
+app.controller('listCtrl', ['$scope', '$log', function($scope, $routeParams) {
     $scope.owner = $routeParams.owner;
 
     $scope.lists = [];
@@ -42,7 +17,7 @@ app.controller('listCtrl', function($scope, $routeParams) {
         $('select').material_select();
     });
 
-});
+}]);
 
 //TODO: Create list for done and undone tasks, give option to hide done tasks
 //TODO: Create option to delete tasks
