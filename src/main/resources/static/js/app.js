@@ -1,4 +1,4 @@
-var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'ngMessages', 'mainCtrl', 'listCtrl']);
+var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'apiFactory', 'ngMessages', 'mainCtrl', 'listCtrl']);
 
 app.config(['$routeProvider', function($routeProvider) {
     $routeProvider
