@@ -1,20 +1,25 @@
-var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'apiFactory', 'ngMessages', 'mainCtrl', 'listCtrl']);
+var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'apiFactory', 'ngMessages', 'mainCtrl', 'listCtrl', 'authCtrl']);
 
 app.config(['$routeProvider', function($routeProvider) {
+
     $routeProvider
         .when('/ListMaria/:owner', {
-            templateUrl: 'templates/personal-space.html',
+            templateUrl: 'view/personal-space.html',
             controller: 'listCtrl'
         })
         .when('/ListKim/:owner', {
-            templateUrl: 'templates/personal-space.html',
+            templateUrl: 'view/personal-space.html',
             controller: 'listCtrl'
         })
         .when('/home', {
-            templateUrl: 'templates/home.html',
+            templateUrl: 'view/home.html',
             controller: 'mainCtrl'
         })
-        .otherwise({
-            redirectTo: '/home'
-        });
+        .when('/login', {
+            templateUrl: 'view/login.html',
+            controller: 'authCtrl'
+        })
+        .otherwise('/home');
+
+    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 }]);
