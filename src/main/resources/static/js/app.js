@@ -1,6 +1,6 @@
-var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'apiFactory', 'ngMessages', 'mainCtrl', 'listCtrl', 'authCtrl']);
+var app = angular.module('monkeyDo', ['ngRoute', 'ngMaterial', 'apiFactory', 'ngMessages', 'mainCtrl', 'listCtrl']);
 
-app.config(['$routeProvider', function($routeProvider) {
+app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 
     $routeProvider
         .when('/ListMaria/:owner', {
@@ -15,11 +15,7 @@ app.config(['$routeProvider', function($routeProvider) {
             templateUrl: 'view/home.html',
             controller: 'mainCtrl'
         })
-        .when('/login', {
-            templateUrl: 'view/login.html',
-            controller: 'authCtrl'
-        })
-        .otherwise('/home');
-
-    $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        .otherwise({
+            redirectTo: '/home'
+        });
 }]);

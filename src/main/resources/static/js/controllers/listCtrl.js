@@ -8,7 +8,7 @@ app.controller('listCtrl', ['$scope', '$log', function($scope, $routeParams) {
         console.log("Name of list: " + name);
         $scope.lists.push(name);
         $scope.name = "";
-        console.log("Lists: " + $scope.lists);
+        console.log("Lists [" + $scope.lists + "]");
     };
 
     $(document).ready(function(){
@@ -26,7 +26,7 @@ app.controller('listCtrl', ['$scope', '$log', function($scope, $routeParams) {
 //TODO: Be able to sort lists by category or age 
 app.directive('taskList', function() {
     return {
-        templateUrl: 'templates/tasklist.html',
+        templateUrl: 'view/tasklist.html',
         link: function (scope) {
             scope.myList = [];
             scope.selected = [];
@@ -34,7 +34,7 @@ app.directive('taskList', function() {
                 console.log("newtask [" + scope.newtask + "]");
                 scope.myList.push(scope.newtask);
                 scope.newtask = '';
-            }
+            };
 
             scope.toggle = function(task, selected, index) {
                 var idx = selected.indexOf(index);
