@@ -1,6 +1,6 @@
-var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial']);
+var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial', 'apiFactory']);
 
-app.controller('listCtrl', ['$scope', '$log', function($scope, $routeParams) {
+app.controller('listCtrl', ['$scope', '$log', 'apiFactory', function($scope, $routeParams, apiFactory) {
     $scope.owner = $routeParams.owner;
 
     $scope.lists = [];
@@ -9,6 +9,16 @@ app.controller('listCtrl', ['$scope', '$log', function($scope, $routeParams) {
         $scope.lists.push(name);
         $scope.name = "";
         console.log("Lists [" + $scope.lists + "]");
+    };
+
+    $scope.save = function() {
+        console.log("Saving...");
+        apiFactory.save()
+            .then(function (response) {
+                console.log("Manages to save! Response [" + response.data + "]")
+            }, function (error) {
+                $scope.status = 'Unable to save...' + error.message;
+            });
     };
 
     $(document).ready(function(){

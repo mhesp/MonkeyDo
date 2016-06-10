@@ -15,8 +15,8 @@ import java.security.Principal;
 @RequestMapping(value = "/monkeydo")
 public class MonkeyDoService {
 
-    @RequestMapping(value = "/test", method = RequestMethod.GET)
-    public Task test() {
-        return new Task("this is a rest-test!");
+    @RequestMapping(value = "/save", method = RequestMethod.GET, produces = "application/json")
+    public String save() {
+        return "\"Test of REST api - saving...\"";
     }
 }

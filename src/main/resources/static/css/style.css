@@ -124,7 +124,12 @@ nav {
 }
 
 /* Modal add button */
-#modal-add-list {
+#btn-orange-modal {
+    background-color: orange;
+}
+
+/* Save changes button */
+#btn-orange-save {
     background-color: orange;
 }
 
