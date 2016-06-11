@@ -10,11 +10,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
-import java.io.File;
 
-/**
- * Created by maria on 10.06.16.
- */
 @Configuration
 public class AppConfig {
 
