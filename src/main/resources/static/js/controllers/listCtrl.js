@@ -5,7 +5,6 @@ app.controller('listCtrl', ['$scope', '$log', 'apiFactory', function($scope, $ro
 
     $scope.lists = [];
     $scope.addList = function(name) {
-        console.log("Name of list: " + name);
         $scope.lists.push(name);
         $scope.name = "";
         console.log("Lists [" + $scope.lists + "]");
@@ -29,6 +28,16 @@ app.controller('listCtrl', ['$scope', '$log', 'apiFactory', function($scope, $ro
 
 }]);
 
+app.run(['apiFactory', function(apiFactory) {
+    console.log("Loading data from DB...");
+    apiFactory.loadData()
+        .then(function (response) {
+            console.log("Loaded data: " + response.data);
+        }, function (error) {
+            console.log("ERROR! " + error.message);    
+        }); 
+}]);
+
 //TODO: Create list for done and undone tasks, give option to hide done tasks
 //TODO: Create option to delete tasks
 //TODO: Somehow show which category a list goes into
@@ -41,9 +50,9 @@ app.directive('taskList', function() {
             scope.myList = [];
             scope.selected = [];
             scope.addTask = function() {
-                console.log("newtask [" + scope.newtask + "]");
                 scope.myList.push(scope.newtask);
                 scope.newtask = '';
+                console.log("List of tasks [" + scope.myList + "]");
             };
 
             scope.toggle = function(task, selected, index) {

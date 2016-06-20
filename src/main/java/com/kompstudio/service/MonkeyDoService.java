@@ -25,4 +25,10 @@ public class MonkeyDoService {
         daoManager.save();
         return "\"Test of REST api - saving...\"";
     }
+
+    @RequestMapping(value = "/load", method = RequestMethod.GET, produces = "application/json")
+    public String load() {
+        //Do something here...
+        return null;
+    }
 }

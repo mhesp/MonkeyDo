@@ -1,5 +1,5 @@
 CREATE TABLE users (
-  user_id INTEGER IDENTITY,
+  user_id INTEGER,
   user_name VARCHAR(30),
   PRIMARY KEY (user_id)
 );
@@ -8,7 +8,8 @@ CREATE TABLE lists (
   list_user_name VARCHAR(30),
   list_user_id INTEGER,
   list_name VARCHAR(30),
-  FOREIGN KEY (list_user_id) REFERENCES users(user_id)
+  FOREIGN KEY (list_user_id) REFERENCES users(user_id),
+  UNIQUE (list_user_id)
 );
 
 CREATE TABLE tasks (
@@ -18,5 +19,6 @@ CREATE TABLE tasks (
   task_due_date TIMESTAMP,
   task_created_date TIMESTAMP,
   done BOOLEAN,
-  FOREIGN KEY (task_list_id) REFERENCES lists(list_user_id)
+  FOREIGN KEY (task_list_id) REFERENCES lists(list_user_id),
+  UNIQUE (task_list_id)
 );

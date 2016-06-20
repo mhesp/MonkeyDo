@@ -9,6 +9,7 @@ app.config(['$routeProvider', '$httpProvider', function($routeProvider, $httpPro
         })
         .when('/ListKim/:owner', {
             templateUrl: 'view/personal-space.html',
+            controllerAs: 'ctrl',
             controller: 'listCtrl'
         })
         .when('/home', {
