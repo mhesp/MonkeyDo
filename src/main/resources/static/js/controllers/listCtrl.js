@@ -4,10 +4,16 @@ app.controller('listCtrl', ['$scope', '$log', 'apiFactory', function($scope, $ro
     $scope.owner = $routeParams.owner;
 
     $scope.lists = [];
+    $scope.toDo = "";
     $scope.addList = function(name) {
-        $scope.lists.push(name);
+        $scope.toDo = {"name": name, "tasks":[]};
+        $scope.lists.push($scope.toDo);
         $scope.name = "";
-        console.log("Lists [" + $scope.lists + "]");
+        $scope.toDo = "";
+
+        for (i = 0; i < $scope.lists.length; i++) {
+            console.log("Name [" + $scope.lists[i].name + "] and tasks [" + $scope.lists[i].tasks + "]");
+        }
     };
 
     $scope.save = function() {
@@ -47,12 +53,12 @@ app.directive('taskList', function() {
     return {
         templateUrl: 'view/tasklist.html',
         link: function (scope) {
-            scope.myList = [];
             scope.selected = [];
-            scope.addTask = function() {
-                scope.myList.push(scope.newtask);
+
+            scope.addTask = function(list) {
+                list.push(scope.newtask);
                 scope.newtask = '';
-                console.log("List of tasks [" + scope.myList + "]");
+                console.log("List of tasks [" + list + "]");
             };
 
             scope.toggle = function(task, selected, index) {
