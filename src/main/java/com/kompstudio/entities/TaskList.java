@@ -5,25 +5,12 @@ package com.kompstudio.entities;
  */
 public class TaskList {
 
-    private String userName;
     private int userId;
+    private int listId;
     private String listName;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public int getUserId() {
         return userId;
-    }
-
-    @Override
-    public String toString() {
-        return "userName [" + userName + "] userId [" + userId  + "] listName [" + listName + "]";
     }
 
     public void setUserId(int userId) {
@@ -36,5 +23,18 @@ public class TaskList {
 
     public void setListName(String listName) {
         this.listName = listName;
+    }
+
+    public int getListId() {
+        return listId;
+    }
+
+    public void setListId(int listId) {
+        this.listId = listId;
+    }
+
+    @Override
+    public String toString() {
+        return "listId [" + listId + "] userId [" + userId  + "] listName [" + listName + "]";
     }
 }

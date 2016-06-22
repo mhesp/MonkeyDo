@@ -1,6 +1,6 @@
 <div class="task-container">
     <div class="content-task-container">
-        <h5 id="list-header">{{list.name}}</h5>
+        <h5 id="list-header">{{list.taskList.listName}}</h5>
         <div class="row">
             <div class="input-field col s10">
                 <input id="task-input-{{$index}}" type="text" ng-model="newtask">
@@ -10,9 +10,9 @@
                 <a class="btn-floating" id="btn-add-task"><i class="material-icons" ng-click="addTask(list.tasks)">add</i></a>
             </div>
         </div>
-        <div class="show-tasks" ng-repeat="task in myList track by $index">
+        <div class="show-tasks" ng-repeat="task in list.tasks track by $index">
             <label>
-                <md-checkbox ng-checked="exists(task, selected, $index)" ng-click="toggle(task, selected, $index)">{{ task }}</md-checkbox>
+                <md-checkbox ng-checked="exists(task, selected, $index, list.tasks)" ng-click="toggle(task, selected, $index)">{{ task.taskName }}</md-checkbox>
             </label>
         </div>
     </div>

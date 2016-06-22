@@ -7,20 +7,11 @@ import java.sql.Date;
  */
 public class Task {
 
-    private String listName;
     private int listId;
     private String taskName;
-    private Date taskDueDate;
-    private Date taskCreatedDate;
+    private String taskDueDate;
+    private String taskCreatedDate;
     private boolean done;
-
-    public String getListName() {
-        return listName;
-    }
-
-    public void setListName(String listName) {
-        this.listName = listName;
-    }
 
     public int getListId() {
         return listId;
@@ -38,19 +29,19 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public Date getTaskDueDate() {
+    public String getTaskDueDate() {
         return taskDueDate;
     }
 
-    public void setTaskDueDate(Date taskDueDate) {
+    public void setTaskDueDate(String taskDueDate) {
         this.taskDueDate = taskDueDate;
     }
 
-    public Date getTaskCreatedDate() {
+    public String getTaskCreatedDate() {
         return taskCreatedDate;
     }
 
-    public void setTaskCreatedDate(Date taskCreatedDate) {
+    public void setTaskCreatedDate(String taskCreatedDate) {
         this.taskCreatedDate = taskCreatedDate;
     }
 
@@ -64,7 +55,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Name [" + taskName + "], listName [" + listName + "] listId ["
-                + listId + "] done [" + done + "]";
+        return "Name [" + taskName + "], listId [" + listId + "] done [" + done + "]";
     }
 }

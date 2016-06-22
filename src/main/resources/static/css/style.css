@@ -56,9 +56,9 @@ main {
     overflow: hidden;
 }
 
-/*.show-tasks {
-    padding-left: 10px;
-}*/
+.show-tasks {
+
+}
 
 #btn-add-task {
     text-align: center;
@@ -152,4 +152,8 @@ md-checkbox.md-checked ._md-icon {
 
 md-checkbox.md-checked {
     color: grey;
+}
+
+md-checkbox {
+    font-size: 15px;
 }

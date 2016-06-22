@@ -1,26 +1,34 @@
 var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial', 'apiFactory']);
 
-app.controller('listCtrl', ['$scope', '$log', 'apiFactory', function($scope, $routeParams, apiFactory) {
+app.controller('listCtrl', ['$scope', '$rootScope', '$log', '$routeParams','apiFactory', function($scope, $rootScope, $log, $routeParams, apiFactory) {
     $scope.owner = $routeParams.owner;
 
-    $scope.lists = [];
-    $scope.toDo = "";
     $scope.addList = function(name) {
-        $scope.toDo = {"name": name, "tasks":[]};
+        $scope.toDo = {'taskList':{'userId': '', 'listName':name, 'listId':'-1'}, "tasks":[]};
         $scope.lists.push($scope.toDo);
-        $scope.name = "";
         $scope.toDo = "";
+        $scope.name = "";
 
         for (i = 0; i < $scope.lists.length; i++) {
-            console.log("Name [" + $scope.lists[i].name + "] and tasks [" + $scope.lists[i].tasks + "]");
+            console.log("Name [" + $scope.lists[i].taskList.listName + "]");
+            for (j = 0; j < $scope.lists[i].tasks.length; j++) {
+                console.log("Task [" + $scope.lists[i].tasks[j].taskName + "]");
+            }
         }
     };
 
     $scope.save = function() {
-        console.log("Saving...");
-        apiFactory.save()
-            .then(function (response) {
-                console.log("Manages to save! Response [" + response.data + "]")
+        console.log("Saving all lists for user [" + $scope.owner + "]");
+        for (i = 0; i < $scope.lists.length; i++) {
+            console.log("Name [" + $scope.lists[i].taskList.listName + "]");
+            for (j = 0; j < $scope.lists[i].tasks.length; j++) {
+                console.log("Task [" + $scope.lists[i].tasks[j].taskName + "]");
+            }
+        }
+
+        apiFactory.save('Maria', $scope.lists)
+            .then(function () {
+                console.log("Managed to save!");
             }, function (error) {
                 $scope.status = 'Unable to save...' + error.message;
             });
@@ -34,11 +42,12 @@ app.controller('listCtrl', ['$scope', '$log', 'apiFactory', function($scope, $ro
 
 }]);
 
-app.run(['apiFactory', function(apiFactory) {
+app.run(['$rootScope', 'apiFactory', function($rootScope, apiFactory) {
     console.log("Loading data from DB...");
-    apiFactory.loadData()
+    apiFactory.loadData('Maria')
         .then(function (response) {
             console.log("Loaded data: " + response.data);
+            $rootScope.lists = response.data;
         }, function (error) {
             console.log("ERROR! " + error.message);    
         }); 
@@ -49,17 +58,26 @@ app.run(['apiFactory', function(apiFactory) {
 //TODO: Somehow show which category a list goes into
 //TODO: Have the possibility for a field where notes can be written freely (inside the to-do list)
 //TODO: Be able to sort lists by category or age 
-app.directive('taskList', function() {
+app.directive('taskList', ['apiFactory', function(apiFactory) {
     return {
         templateUrl: 'view/tasklist.html',
         link: function (scope) {
             scope.selected = [];
 
-            scope.addTask = function(list) {
-                list.push(scope.newtask);
+            scope.addTask = function(list, name) {
+                list.push({'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': 'false'});
                 scope.newtask = '';
-                console.log("List of tasks [" + list + "]");
+
+                console.log("All tasks: ");
+                for (i = 0; i < list.length; i++) {
+                    console.log("TaskName [" + list[i].taskName + "] Done [" + list[i].done + "]");
+                }
             };
+            
+            scope.save = function (list, name) {
+                apiFactory.save()
+            };
+            
 
             scope.toggle = function(task, selected, index) {
                 var idx = selected.indexOf(index);
@@ -77,4 +95,4 @@ app.directive('taskList', function() {
 
         }
     };
-});
+}]);
