@@ -1,9 +1,12 @@
 package com.kompstudio.dao;
 
+import com.kompstudio.AppConfig;
 import com.kompstudio.entities.Task;
 import com.kompstudio.entities.TaskList;
 import com.kompstudio.entities.ListToTask;
 import com.kompstudio.entities.UserLists;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -29,8 +32,12 @@ public class DAOManager {
     @Autowired
     UserDAO userDAO;
 
+    private Logger logger = LoggerFactory.getLogger(AppConfig.class);
+
     public List<ListToTask> loadUserList(String owner) throws Exception {
+        logger.debug("LoadUserList(" + owner + ")");
         int userId = userDAO.getIdFromName(owner);
+        logger.debug("UserID [" + userId + "]");
         List<TaskList> lists = taskListDAO.getListsFromUserId(userId);
 
         List<ListToTask> res = new ArrayList<ListToTask>();

@@ -17,8 +17,7 @@ public class TaskMapper implements RowMapper<Task> {
         task.setListId(resultSet.getInt(1));
         task.setTaskName(resultSet.getString(2));
         task.setTaskDueDate(null);
-        task.setTaskCreatedDate(resultSet.getTimestamp(4).toString());
-        System.out.println("TIMESTAMP: " + task.getTaskCreatedDate());
+        task.setTaskCreatedDate(resultSet.getString(4));
         task.setDone(resultSet.getBoolean(5));
         return task;
     }

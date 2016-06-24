@@ -4,24 +4,21 @@ import com.kompstudio.dao.DAOManager;
 import com.kompstudio.dao.TaskDAO;
 import com.kompstudio.dao.TaskListDAO;
 import com.kompstudio.dao.UserDAO;
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-
-import javax.sql.DataSource;
-import java.sql.Driver;
 
 @Configuration
 public class AppConfig {
 
     @Autowired
     DataSource dataSource;
+
+    Logger logger = LoggerFactory.getLogger(AppConfig.class);
 
     @Bean
     public DAOManager daoManager() {
@@ -30,14 +27,12 @@ public class AppConfig {
 
     @Bean
     public DataSource dataSource() {
-        EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-        EmbeddedDatabase db = builder
-                .setName("monkeyDo")
-                .setType(EmbeddedDatabaseType.HSQL)
-                .addScript("db/create-db.sql")
-                .addScript("db/insert-db.sql")
-                .build();
-        return db;
+        DataSource dataSource = new DataSource();
+        dataSource.setDriverClassName("org.sqlite.JDBC");
+        dataSource.setUrl("jdbc:sqlite:etc/db/monkeydo.db");
+        dataSource.setInitialSize(1);
+        dataSource.setMaxActive(1);
+        return dataSource;
     }
 
     @Bean
