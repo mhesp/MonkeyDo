@@ -25,4 +25,14 @@ public class UserLists {
     public void setLists(List<ListToTask> lists) {
         this.lists = lists;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("User [" + user + "]:\n");
+        for (ListToTask list: lists) {
+            builder.append(list.toString() + "\n");
+        }
+        return builder.toString();
+    }
 }

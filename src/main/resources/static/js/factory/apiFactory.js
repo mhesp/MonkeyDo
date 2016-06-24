@@ -9,7 +9,7 @@ services.factory('apiFactory', ['$http', function ($http) {
         var res = {'user': owner, 'lists': lists};
         return $http.put(urlBase + "/save", res);
     };
-
+    
     apiFactory.loadData = function (owner) {
         return $http.get(urlBase + "/load/" + owner, {}, {
             get: {

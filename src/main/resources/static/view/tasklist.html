@@ -7,7 +7,7 @@
                 <label for="task-input-{{$index}}">Write task here</label>
             </div>
             <div class="btn-add" type="submit">
-                <a class="btn-floating" id="btn-add-task"><i class="material-icons" ng-click="addTask(list.tasks)">add</i></a>
+                <a class="btn-floating" id="btn-add-task"><i class="material-icons" ng-click="addTask(list.tasks, lists)">add</i></a>
             </div>
         </div>
         <div class="show-tasks" ng-repeat="task in list.tasks track by $index">

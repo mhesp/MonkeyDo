@@ -25,4 +25,14 @@ public class ListToTask {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("List: " + taskList.toString() + "\n");
+        for (Task task: tasks) {
+            builder.append(task.toString() + "\n");
+        }
+        return builder.toString();
+    }
 }

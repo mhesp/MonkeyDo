@@ -1,6 +1,7 @@
 var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial', 'apiFactory']);
 
 app.controller('listCtrl', ['$scope', '$rootScope', '$log', '$routeParams','apiFactory', function($scope, $rootScope, $log, $routeParams, apiFactory) {
+    $rootScope.owner = $routeParams.owner;
     $scope.owner = $routeParams.owner;
 
     $scope.addList = function(name) {
@@ -8,6 +9,8 @@ app.controller('listCtrl', ['$scope', '$rootScope', '$log', '$routeParams','apiF
         $scope.lists.push($scope.toDo);
         $scope.toDo = "";
         $scope.name = "";
+
+        apiFactory.save($scope.owner, $scope.lists);
 
         for (i = 0; i < $scope.lists.length; i++) {
             console.log("Name [" + $scope.lists[i].taskList.listName + "]");
@@ -58,26 +61,23 @@ app.run(['$rootScope', 'apiFactory', function($rootScope, apiFactory) {
 //TODO: Somehow show which category a list goes into
 //TODO: Have the possibility for a field where notes can be written freely (inside the to-do list)
 //TODO: Be able to sort lists by category or age 
-app.directive('taskList', ['apiFactory', function(apiFactory) {
+app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $rootScope) {
     return {
         templateUrl: 'view/tasklist.html',
         link: function (scope) {
             scope.selected = [];
 
-            scope.addTask = function(list, name) {
+            scope.addTask = function(list, lists) {
                 list.push({'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': 'false'});
                 scope.newtask = '';
+
+                apiFactory.save($rootScope.owner, lists);
 
                 console.log("All tasks: ");
                 for (i = 0; i < list.length; i++) {
                     console.log("TaskName [" + list[i].taskName + "] Done [" + list[i].done + "]");
                 }
             };
-            
-            scope.save = function (list, name) {
-                apiFactory.save()
-            };
-            
 
             scope.toggle = function(task, selected, index) {
                 var idx = selected.indexOf(index);

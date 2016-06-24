@@ -52,6 +52,9 @@ public class DAOManager {
     }
 
     public void save(UserLists userLists) throws Exception {
+
+        logger.info("Saving... \n" + userLists.toString());
+
         String name = userLists.getUser();
         int userId = userDAO.getIdFromName(name);
 
