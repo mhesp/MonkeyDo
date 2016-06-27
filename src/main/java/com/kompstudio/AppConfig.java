@@ -2,7 +2,7 @@ package com.kompstudio;
 
 import com.kompstudio.dao.DAOManager;
 import com.kompstudio.dao.TaskDAO;
-import com.kompstudio.dao.TaskListDAO;
+import com.kompstudio.dao.ToDoListDAO;
 import com.kompstudio.dao.UserDAO;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.slf4j.Logger;
@@ -49,8 +49,8 @@ public class AppConfig {
     }
 
     @Bean
-    public TaskListDAO taskListDAO() {
-        return new TaskListDAO();
+    public ToDoListDAO taskListDAO() {
+        return new ToDoListDAO();
     }
 
 }

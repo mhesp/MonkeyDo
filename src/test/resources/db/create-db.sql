@@ -11,6 +11,7 @@ CREATE TABLE lists (
 );
 
 CREATE TABLE tasks (
+  task_id INTEGER IDENTITY PRIMARY KEY,
   task_list_id INTEGER,
   task_name VARCHAR(30),
   task_due_date TIMESTAMP,

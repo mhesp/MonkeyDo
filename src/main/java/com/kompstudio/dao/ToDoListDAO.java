@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by mhesp on 22.06.2016.
  */
-public class TaskListDAO {
+public class ToDoListDAO {
 
     @Autowired
     JdbcTemplate jdbcTemplate;

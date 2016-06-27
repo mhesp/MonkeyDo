@@ -1,17 +1,24 @@
 package com.kompstudio.entities;
 
-import java.sql.Date;
-
 /**
  * Created by maria on 08.04.16.
  */
 public class Task {
 
+    private int id;
     private int listId;
     private String taskName;
     private String taskDueDate;
     private String taskCreatedDate;
     private boolean done;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getListId() {
         return listId;
@@ -55,6 +62,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Name [" + taskName + "], listId [" + listId + "] done [" + done + "]";
+        return "ID [" + id + "] Name [" + taskName + "], listId [" + listId + "] done [" + done + "]";
     }
 }

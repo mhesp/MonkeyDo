@@ -23,7 +23,7 @@ public class DAOManager {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    TaskListDAO taskListDAO;
+    ToDoListDAO taskListDAO;
 
     @Autowired
     TaskDAO taskDAO;
@@ -54,9 +54,14 @@ public class DAOManager {
         return taskListDAO.add(list);
     }
 
-    public void saveTask(Task task) throws Exception {
+    public int saveTask(Task task) throws Exception {
         logger.info("Saving task [" + task.toString() + "]");
-        taskDAO.add(task);
+        return taskDAO.add(task);
+    }
+
+    public void deleteTask(Task task) throws Exception {
+        logger.info("Deleting task [" + task.toString() + "]");
+        taskDAO.delete(task);
     }
 
 }

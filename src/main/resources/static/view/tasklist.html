@@ -11,9 +11,15 @@
             </div>
         </div>
         <div class="show-tasks" ng-repeat="task in list.tasks track by $index">
-            <label>
-                <md-checkbox ng-checked="exists(task, selected, $index, list.tasks)" ng-click="toggle(task, selected, $index)">{{ task.taskName }}</md-checkbox>
-            </label>
+            <div class="row">
+                <label>
+                    <md-checkbox ng-checked="exists(task, selected, $index, list.tasks)" ng-click="toggle(task, selected, $index)">{{ task.taskName }}</md-checkbox>
+                </label>
+                <flex></flex>
+                <md-button class="md-icon-button md-accent" ng-click="delete(task, list.tasks)">
+                    <md-icon md-font-icon="clear">clear</md-icon>
+                </md-button>
+            </div>
         </div>
     </div>
 </div>

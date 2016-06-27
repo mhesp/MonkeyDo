@@ -3,20 +3,22 @@ var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial', 'apiFactory']);
 app.controller('listCtrl', ['$scope', '$rootScope', '$log', '$routeParams','apiFactory', function($scope, $rootScope, $log, $routeParams, apiFactory) {
     $rootScope.owner = $routeParams.owner;
     $scope.owner = $routeParams.owner;
-    $scope.lists = $rootScope.lists;
 
     $scope.addList = function(name) {
         //TODO: Remove hardcoded userId
         var listId = -1;
         $scope.toDo = {'taskList':{'userId': '1', 'listId':'-1', 'listName':name}, "tasks":[]};
+        $scope.lists.push($scope.toDo);
+
         apiFactory.saveList($scope.toDo.taskList)
             .then(function(response) {
                 console.log("Saved list & got ListID [" + response.data + "]");
                 listId = response.data;
-                $scope.toDo.listId = listId;
+                var index = $scope.lists.indexOf($scope.toDo);
+                //TODO: Fix!
+                $scope.lists[index].taskList.listId = listId;
             });
 
-        $scope.lists.push($scope.toDo);
         $scope.toDo = "";
         $scope.name = "";
 
@@ -41,7 +43,7 @@ app.run(['$rootScope', 'apiFactory', function($rootScope, apiFactory) {
     apiFactory.loadData(1)
         .then(function (response) {
             console.log("Successfully loaded data for User with ID [" + 1 + "]");
-            console.log("Number of lists loaded [" + response.data.length + "]"); 
+            console.log("Number of lists loaded [" + response.data.length + "]");
             $rootScope.lists = response.data;
         }, function (error) {
             console.log("ERROR! " + error.message);    
@@ -60,8 +62,15 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
             scope.selected = [];
 
             scope.addTask = function(list) {
-                var task = {'listId': list.taskList.listId,'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': 'false'};
-                console.log("Tasks listID [" + task.listId + "]");
+                var task = {'id':'', 'listId': list.taskList.listId,'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': 'false'};
+
+                apiFactory.saveList(task)
+                    .then(function(response) {
+                        console.log("Saved task & got ID [" + response.data + "]");
+                        task.id = response.data;
+                    });
+
+                console.log("Tasks listID [" + task.listId + "] & ID [" + task.id + "]");
                 list.tasks.push(task);
                 apiFactory.saveTask(task);
                 scope.newtask = '';
@@ -70,6 +79,15 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
                 for (i = 0; i < list.tasks.length; i++) {
                     console.log("TaskName [" + list.tasks[i].taskName + "] Done [" + list.tasks[i].done + "]");
                 }
+            };
+
+            scope.delete = function(task, list) {
+                var index = list.indexOf(task);
+                console.log("Deleting... list[index] = " + list[index]);
+                if (index > -1) {
+                    list.splice(index, 1);
+                }
+                apiFactory.deleteTask(task);
             };
 
             scope.toggle = function(task, selected, index) {

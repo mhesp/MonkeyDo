@@ -12,9 +12,13 @@ services.factory('apiFactory', ['$http', function ($http) {
             }
         });
     };
+
+    apiFactory.deleteTask = function (task) {
+        return $http.put(urlBase + "/delete/task", task); 
+    };
     
     apiFactory.saveList = function (list) {
-        return $http.put(urlBase + "/save/list", list);   
+        return $http.put(urlBase + "/save/list", list);
     };
 
     apiFactory.saveTask = function (task) {

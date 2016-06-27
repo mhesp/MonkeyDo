@@ -14,11 +14,12 @@ public class TaskMapper implements RowMapper<Task> {
     @Override
     public Task mapRow(ResultSet resultSet, int i) throws SQLException {
         Task task = new Task();
-        task.setListId(resultSet.getInt(1));
-        task.setTaskName(resultSet.getString(2));
+        task.setId(resultSet.getInt(1));
+        task.setListId(resultSet.getInt(2));
+        task.setTaskName(resultSet.getString(3));
         task.setTaskDueDate(null);
-        task.setTaskCreatedDate(resultSet.getString(4));
-        task.setDone(resultSet.getBoolean(5));
+        task.setTaskCreatedDate(resultSet.getString(5));
+        task.setDone(resultSet.getBoolean(6));
         return task;
     }
 }
