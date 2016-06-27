@@ -3,38 +3,29 @@ var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial', 'apiFactory']);
 app.controller('listCtrl', ['$scope', '$rootScope', '$log', '$routeParams','apiFactory', function($scope, $rootScope, $log, $routeParams, apiFactory) {
     $rootScope.owner = $routeParams.owner;
     $scope.owner = $routeParams.owner;
+    $scope.lists = $rootScope.lists;
 
     $scope.addList = function(name) {
-        $scope.toDo = {'taskList':{'userId': '', 'listName':name, 'listId':'-1'}, "tasks":[]};
+        //TODO: Remove hardcoded userId
+        var listId = -1;
+        $scope.toDo = {'taskList':{'userId': '1', 'listId':'-1', 'listName':name}, "tasks":[]};
+        apiFactory.saveList($scope.toDo.taskList)
+            .then(function(response) {
+                console.log("Saved list & got ListID [" + response.data + "]");
+                listId = response.data;
+                $scope.toDo.listId = listId;
+            });
+
         $scope.lists.push($scope.toDo);
         $scope.toDo = "";
         $scope.name = "";
 
-        apiFactory.save($scope.owner, $scope.lists);
-
         for (i = 0; i < $scope.lists.length; i++) {
             console.log("Name [" + $scope.lists[i].taskList.listName + "]");
             for (j = 0; j < $scope.lists[i].tasks.length; j++) {
                 console.log("Task [" + $scope.lists[i].tasks[j].taskName + "]");
             }
         }
-    };
-
-    $scope.save = function() {
-        console.log("Saving all lists for user [" + $scope.owner + "]");
-        for (i = 0; i < $scope.lists.length; i++) {
-            console.log("Name [" + $scope.lists[i].taskList.listName + "]");
-            for (j = 0; j < $scope.lists[i].tasks.length; j++) {
-                console.log("Task [" + $scope.lists[i].tasks[j].taskName + "]");
-            }
-        }
-
-        apiFactory.save('Maria', $scope.lists)
-            .then(function () {
-                console.log("Managed to save!");
-            }, function (error) {
-                $scope.status = 'Unable to save...' + error.message;
-            });
     };
 
     $(document).ready(function(){
@@ -47,9 +38,10 @@ app.controller('listCtrl', ['$scope', '$rootScope', '$log', '$routeParams','apiF
 
 app.run(['$rootScope', 'apiFactory', function($rootScope, apiFactory) {
     console.log("Loading data from DB...");
-    apiFactory.loadData('Maria')
+    apiFactory.loadData(1)
         .then(function (response) {
-            console.log("Loaded data: " + response.data);
+            console.log("Successfully loaded data for User with ID [" + 1 + "]");
+            console.log("Number of lists loaded [" + response.data.length + "]"); 
             $rootScope.lists = response.data;
         }, function (error) {
             console.log("ERROR! " + error.message);    
@@ -67,15 +59,16 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
         link: function (scope) {
             scope.selected = [];
 
-            scope.addTask = function(list, lists) {
-                list.push({'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': 'false'});
+            scope.addTask = function(list) {
+                var task = {'listId': list.taskList.listId,'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': 'false'};
+                console.log("Tasks listID [" + task.listId + "]");
+                list.tasks.push(task);
+                apiFactory.saveTask(task);
                 scope.newtask = '';
 
-                apiFactory.save($rootScope.owner, lists);
-
                 console.log("All tasks: ");
-                for (i = 0; i < list.length; i++) {
-                    console.log("TaskName [" + list[i].taskName + "] Done [" + list[i].done + "]");
+                for (i = 0; i < list.tasks.length; i++) {
+                    console.log("TaskName [" + list.tasks[i].taskName + "] Done [" + list.tasks[i].done + "]");
                 }
             };
 

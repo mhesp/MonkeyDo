@@ -5,16 +5,16 @@ import java.util.List;
 /**
  * Created by mhesp on 22.06.2016.
  */
-public class ListToTask {
+public class Lists {
 
-    private TaskList taskList;
+    private ToDoList taskList;
     private List<Task> tasks;
 
-    public TaskList getTaskList() {
+    public ToDoList getTaskList() {
         return taskList;
     }
 
-    public void setTaskList(TaskList taskList) {
+    public void setTaskList(ToDoList taskList) {
         this.taskList = taskList;
     }
 
@@ -30,7 +30,7 @@ public class ListToTask {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("List: " + taskList.toString() + "\n");
-        for (Task task: tasks) {
+        for (Task task : tasks) {
             builder.append(task.toString() + "\n");
         }
         return builder.toString();

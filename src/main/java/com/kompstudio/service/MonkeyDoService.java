@@ -1,8 +1,9 @@
 package com.kompstudio.service;
 
 import com.kompstudio.dao.DAOManager;
-import com.kompstudio.entities.ListToTask;
-import com.kompstudio.entities.UserLists;
+import com.kompstudio.entities.Lists;
+import com.kompstudio.entities.Task;
+import com.kompstudio.entities.ToDoList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,18 @@ public class MonkeyDoService {
     @Autowired
     DAOManager daoManager;
 
-    @RequestMapping(value = "/save", method = RequestMethod.PUT, produces = "application/json")
-    public void save(@RequestBody UserLists userLists) throws Exception {
-        daoManager.save(userLists);
+    @RequestMapping(value = "/save/task", method = RequestMethod.PUT, produces = "application/json")
+    public void save(@RequestBody Task task) throws Exception {
+        daoManager.saveTask(task);
     }
 
-    @RequestMapping(value = "/load/{owner}", method = RequestMethod.GET, produces = "application/json")
-    public List<ListToTask> load(@PathVariable("owner") String owner) throws Exception {
-        return daoManager.loadUserList(owner);
+    @RequestMapping(value = "/save/list", method = RequestMethod.PUT, produces = "application/json")
+    public int save(@RequestBody ToDoList list) throws Exception {
+        return daoManager.saveList(list);
+    }
+
+    @RequestMapping(value = "/load/{userId}", method = RequestMethod.GET, produces = "application/json")
+    public List<Lists> load(@PathVariable("userId") int userId) throws Exception {
+        return daoManager.loadUserList(userId);
     }
 }

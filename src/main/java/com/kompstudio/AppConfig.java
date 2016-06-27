@@ -30,8 +30,6 @@ public class AppConfig {
         DataSource dataSource = new DataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
         dataSource.setUrl("jdbc:sqlite:etc/db/monkeydo.db");
-        dataSource.setInitialSize(1);
-        dataSource.setMaxActive(1);
         return dataSource;
     }
 

@@ -3,7 +3,7 @@ package com.kompstudio.entities;
 /**
  * Created by mhesp on 11.06.2016.
  */
-public class TaskList {
+public class ToDoList {
 
     private int userId;
     private int listId;
@@ -35,6 +35,6 @@ public class TaskList {
 
     @Override
     public String toString() {
-        return "listId [" + listId + "] userId [" + userId  + "] listName [" + listName + "]";
+        return "listId [" + listId + "] userId [" + userId + "] listName [" + listName + "]";
     }
 }
