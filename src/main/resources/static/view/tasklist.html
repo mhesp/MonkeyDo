@@ -1,6 +1,13 @@
 <div class="task-container">
     <div class="content-task-container">
-        <h5 id="list-header">{{list.taskList.listName}}</h5>
+        <div layout="row">
+            <div flex>
+                <h5 id="list-header">{{list.taskList.listName}}</h5>
+            </div>
+            <div layout-align="end">
+                <i class="material-icons">more_horiz</i>
+            </div>
+        </div>
         <div class="row">
             <div class="input-field col s10">
                 <input id="task-input-{{$index}}" type="text" ng-model="newtask">
@@ -13,10 +20,9 @@
         <div class="show-tasks" ng-repeat="task in list.tasks track by $index">
             <div class="row">
                 <label>
-                    <md-checkbox ng-checked="exists(task, selected, $index, list.tasks)" ng-click="toggle(task, selected, $index)">{{ task.taskName }}</md-checkbox>
+                    <md-checkbox ng-checked="isDone(task)" ng-click="toggle(task)">{{ task.taskName }}</md-checkbox>
                 </label>
-                <flex></flex>
-                <md-button class="md-icon-button md-accent" ng-click="delete(task, list.tasks)">
+                <md-button class="md-icon-button md-accent" id="btn-delete" ng-click="delete(task, list.tasks)">
                     <md-icon md-font-icon="clear">clear</md-icon>
                 </md-button>
             </div>

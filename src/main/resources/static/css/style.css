@@ -70,6 +70,10 @@ main {
     box-shadow: none;
 }
 
+#btn-delete {
+    color: black;
+}
+
 
 /* Styling for input field */
 
@@ -144,6 +148,10 @@ nav {
 #modal1 {
     height: 250px;
     width: 450px;
+}
+
+.modal-footer {
+    color: black;
 }
 
 md-checkbox.md-checked ._md-icon {

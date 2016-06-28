@@ -59,6 +59,11 @@ public class DAOManager {
         return taskDAO.add(task);
     }
 
+    public void toggleTask(Task task) throws Exception {
+        logger.info("Toggling task to [" + task.toString() + "]");
+        taskDAO.toggle(task.getId(), task.isDone());
+    }
+
     public void deleteTask(Task task) throws Exception {
         logger.info("Deleting task [" + task.toString() + "]");
         taskDAO.delete(task);

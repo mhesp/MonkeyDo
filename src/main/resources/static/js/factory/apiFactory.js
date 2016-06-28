@@ -18,12 +18,18 @@ services.factory('apiFactory', ['$http', function ($http) {
     };
     
     apiFactory.saveList = function (list) {
+        console.log("Saving list!");
         return $http.put(urlBase + "/save/list", list);
     };
 
     apiFactory.saveTask = function (task) {
-        console.log("ListID of task [" + task.listId + "]");
+        console.log("Saving task!");
         return $http.put(urlBase + "/save/task", task); 
+    };
+
+    apiFactory.toggleTask = function (task) {
+        console.log("Toggling...");
+        return $http.put(urlBase + "/toggle/task", task);
     };
 
     return apiFactory;

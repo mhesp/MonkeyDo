@@ -62,38 +62,6 @@ public class TaskDAO {
             e.printStackTrace();
         }
         return -1;
-        /*Connection conn = null;
-        PreparedStatement statement = null;
-        PreparedStatement getId = null;
-        ResultSet generatedKeys = null;
-        try {
-            String SQL = "INSERT INTO TASKS (TASK_LIST_ID, TASK_NAME, DONE, TASK_CREATED_DATE) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-            conn = jdbcTemplate.getDataSource().getConnection();
-            statement = conn.prepareStatement(SQL, new String[]{ "task_id" });
-            statement.setInt(1, task.getListId());
-            statement.setString(2, task.getTaskName());
-            statement.setBoolean(3, task.isDone());
-            statement.executeUpdate();
-
-            generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                return (int)generatedKeys.getLong(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("Failed to add Task to DB: " + task.toString());
-        } finally {
-            if (generatedKeys != null) {
-                generatedKeys.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return -1;*/
     }
 
     public void delete(Task task) throws Exception {
@@ -106,6 +74,19 @@ public class TaskDAO {
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Failed to delete task [" + task.toString() + "]");
+        }
+    }
+
+    public void toggle(int id, boolean done) throws Exception {
+        try {
+            String SQL = "UPDATE tasks SET done = ? WHERE task_id = ?";
+            Object[] params = { done, id };
+            int[] types = { Types.BOOLEAN, Types.INTEGER };
+            int res = jdbcTemplate.update(SQL, params, types);
+            logger.info("Result of toggling [" + res + "]");
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+            throw new Exception("Couldn't update task with id [" + id + "] with done [" + done + "]");
         }
     }
 }

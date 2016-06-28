@@ -22,17 +22,24 @@ public class MonkeyDoService {
 
     @RequestMapping(value = "/save/task", method = RequestMethod.PUT, produces = "application/json")
     public int save(@RequestBody Task task) throws Exception {
+        System.out.println("Saving task!");
         return daoManager.saveTask(task);
     }
 
     @RequestMapping(value = "/save/list", method = RequestMethod.PUT, produces = "application/json")
     public int save(@RequestBody ToDoList list) throws Exception {
+        System.out.println("Saving list!");
         return daoManager.saveList(list);
     }
 
     @RequestMapping(value = "/delete/task", method = RequestMethod.PUT, produces = "application/json")
     public void deleteTask(@RequestBody Task task) throws Exception {
         daoManager.deleteTask(task);
+    }
+
+    @RequestMapping(value = "/toggle/task", method = RequestMethod.PUT, produces = "application/json")
+    public void toggle(@RequestBody Task task) throws Exception {
+        daoManager.toggleTask(task);
     }
 
     @RequestMapping(value = "/load/{userId}", method = RequestMethod.GET, produces = "application/json")

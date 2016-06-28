@@ -59,35 +59,5 @@ public class ToDoListDAO {
             e.printStackTrace();
         }
         return -1;
-        /*Connection conn = null;
-        PreparedStatement statement = null;
-        ResultSet generatedKeys = null;
-        try {
-            String SQL = "INSERT INTO lists (list_name, list_user_id) VALUES (?, ?)";
-            conn = jdbcTemplate.getDataSource().getConnection();
-            statement = conn.prepareStatement(SQL, new String[]{ "list_id" });
-            statement.setString(1, taskList.getListName());
-            statement.setInt(2, taskList.getUserId());
-            statement.executeUpdate();
-
-            generatedKeys = statement.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                return (int)generatedKeys.getLong(1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new Exception("Failed to add TaskList to DB: " + taskList.toString());
-        } finally {
-            if (generatedKeys != null) {
-                generatedKeys.close();
-            }
-            if (statement != null) {
-                statement.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return -1;*/
     }
 }

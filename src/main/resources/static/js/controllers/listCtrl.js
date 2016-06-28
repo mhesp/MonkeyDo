@@ -66,21 +66,15 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
             scope.addTask = function(list) {
                 var task = {'id':'-1', 'listId': list.taskList.listId,'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': false};
 
-                apiFactory.saveList(task)
+                apiFactory.saveTask(task)
                     .then(function(response) {
-                        console.log("Saved task & got ID [" + response.data + "]");
+                        console.log("!Saved task & got ID [" + response.data + "]");
                         task.id = response.data;
+                        console.log("Tasks listID [" + task.listId + "] & ID [" + task.id + "]");
+                        list.tasks.push(task);
                     });
 
-                console.log("Tasks listID [" + task.listId + "] & ID [" + task.id + "]");
-                list.tasks.push(task);
-                apiFactory.saveTask(task);
                 scope.newtask = '';
-
-                console.log("All tasks: ");
-                for (i = 0; i < list.tasks.length; i++) {
-                    console.log("TaskName [" + list.tasks[i].taskName + "] Done [" + list.tasks[i].done + "]");
-                }
             };
 
             scope.delete = function(task, list) {
@@ -92,18 +86,15 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
                 apiFactory.deleteTask(task);
             };
 
-            scope.toggle = function(task, selected, index) {
-                var idx = selected.indexOf(index);
-                if (idx > -1) {
-                    selected.splice(idx, 1);
-                } else {
-                    selected.push(index);
-                }
+            scope.toggle = function(task) {
+                var isDone = task.done;
+                task.done = !isDone;
+                apiFactory.toggleTask(task);
             };
 
-            scope.exists = function (task, selected, index) {
-                var idx = selected.indexOf(index);
-                return idx > -1;
+            scope.isDone = function (task) {
+                console.log("Done [" + task.done + "]");
+                return task.done;
             };
 
         }
