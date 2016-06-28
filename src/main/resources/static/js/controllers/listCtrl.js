@@ -3,20 +3,18 @@ var app = angular.module('listCtrl', ['ngRoute', 'ngMaterial', 'apiFactory']);
 app.controller('listCtrl', ['$scope', '$rootScope', '$log', '$routeParams','apiFactory', function($scope, $rootScope, $log, $routeParams, apiFactory) {
     $rootScope.owner = $routeParams.owner;
     $scope.owner = $routeParams.owner;
+    $scope.lists = $rootScope.lists;
 
     $scope.addList = function(name) {
         //TODO: Remove hardcoded userId
-        var listId = -1;
-        $scope.toDo = {'taskList':{'userId': '1', 'listId':'-1', 'listName':name}, "tasks":[]};
-        $scope.lists.push($scope.toDo);
+        $scope.toDo = {'taskList':{'userId': '1', 'listId':'-1', 'listName':name}, 'tasks':[]};
 
         apiFactory.saveList($scope.toDo.taskList)
             .then(function(response) {
                 console.log("Saved list & got ListID [" + response.data + "]");
-                listId = response.data;
-                var index = $scope.lists.indexOf($scope.toDo);
                 //TODO: Fix!
-                $scope.lists[index].taskList.listId = listId;
+                $scope.toDo = {'taskList':{'userId': '1', 'listId':response.data, 'listName':name}, 'tasks':[]};
+                $scope.lists.push($scope.toDo);
             });
 
         $scope.toDo = "";
@@ -44,6 +42,10 @@ app.run(['$rootScope', 'apiFactory', function($rootScope, apiFactory) {
         .then(function (response) {
             console.log("Successfully loaded data for User with ID [" + 1 + "]");
             console.log("Number of lists loaded [" + response.data.length + "]");
+            if (response.data.length == 0) {
+                console.log("No lists created yet!");
+                $rootScope.lists = [];
+            }
             $rootScope.lists = response.data;
         }, function (error) {
             console.log("ERROR! " + error.message);    
@@ -62,7 +64,7 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
             scope.selected = [];
 
             scope.addTask = function(list) {
-                var task = {'id':'', 'listId': list.taskList.listId,'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': 'false'};
+                var task = {'id':'-1', 'listId': list.taskList.listId,'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': false};
 
                 apiFactory.saveList(task)
                     .then(function(response) {

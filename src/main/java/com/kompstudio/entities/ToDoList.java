@@ -6,8 +6,8 @@ package com.kompstudio.entities;
 public class ToDoList {
 
     private int userId;
-    private int listId;
     private String listName;
+    private int listId;
 
     public int getUserId() {
         return userId;

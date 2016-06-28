@@ -1,11 +1,11 @@
 package com.kompstudio.dao;
 
 import com.kompstudio.entities.Task;
-import com.kompstudio.entities.ToDoList;
 import com.kompstudio.mappers.TaskMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -50,36 +50,57 @@ public class TaskDAO {
     }
 
     public int add(Task task) throws Exception {
+        try {
+            String SQL = "INSERT INTO TASKS VALUES (NULL, ?, ?, NULL, CURRENT_TIMESTAMP, ?)";
+            Object[] params = { task.getListId(), task.getTaskName(), task.isDone() };
+            int[] types = { Types.INTEGER, Types.VARCHAR, Types.BOOLEAN };
+            int resInsert = jdbcTemplate.update(SQL, params, types);
+            if (resInsert > 0) {
+                return jdbcTemplate.queryForObject("SELECT last_insert_rowid()", Integer.class);
+            }
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return -1;
+        /*Connection conn = null;
         PreparedStatement statement = null;
+        PreparedStatement getId = null;
+        ResultSet generatedKeys = null;
         try {
             String SQL = "INSERT INTO TASKS (TASK_LIST_ID, TASK_NAME, DONE, TASK_CREATED_DATE) VALUES (?, ?, ?, CURRENT_TIMESTAMP)";
-            statement = jdbcTemplate.getDataSource().getConnection()
-                    .prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            conn = jdbcTemplate.getDataSource().getConnection();
+            statement = conn.prepareStatement(SQL, new String[]{ "task_id" });
             statement.setInt(1, task.getListId());
             statement.setString(2, task.getTaskName());
             statement.setBoolean(3, task.isDone());
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
+                return (int)generatedKeys.getLong(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Failed to add Task to DB: " + task.toString());
         } finally {
+            if (generatedKeys != null) {
+                generatedKeys.close();
+            }
             if (statement != null) {
                 statement.close();
             }
+            if (conn != null) {
+                conn.close();
+            }
         }
-        return -1;
+        return -1;*/
     }
 
     public void delete(Task task) throws Exception {
         try {
             String SQL = "DELETE FROM TASKS WHERE TASK_ID = ?";
-            Object[] params = { task.getId() };
-            int[] types = { Types.INTEGER };
+            Object[] params = {task.getId()};
+            int[] types = {Types.INTEGER};
             int res = jdbcTemplate.update(SQL, params, types);
             logger.info("DELETE. Rows updated [" + res + "]");
         } catch (Exception e) {

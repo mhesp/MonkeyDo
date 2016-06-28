@@ -3,13 +3,11 @@ package com.kompstudio.dao;
 import com.kompstudio.entities.ToDoList;
 import com.kompstudio.mappers.ToDoListMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.sql.Types;
+import java.sql.*;
 import java.util.List;
 
 /**
@@ -48,27 +46,48 @@ public class ToDoListDAO {
     }
 
     public int add(ToDoList taskList) throws Exception {
+
+        try {
+            String SQL = "INSERT INTO lists VALUES (?, ?, NULL)";
+            Object[] params = { taskList.getUserId(), taskList.getListName() };
+            int[] types = { Types.INTEGER,Types.VARCHAR };
+            int resInsert = jdbcTemplate.update(SQL, params, types);
+            if (resInsert > 0) {
+                return jdbcTemplate.queryForObject("SELECT last_insert_rowid()", Integer.class);
+            }
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return -1;
+        /*Connection conn = null;
         PreparedStatement statement = null;
+        ResultSet generatedKeys = null;
         try {
             String SQL = "INSERT INTO lists (list_name, list_user_id) VALUES (?, ?)";
-            statement = jdbcTemplate.getDataSource().getConnection()
-                    .prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
+            conn = jdbcTemplate.getDataSource().getConnection();
+            statement = conn.prepareStatement(SQL, new String[]{ "list_id" });
             statement.setString(1, taskList.getListName());
             statement.setInt(2, taskList.getUserId());
             statement.executeUpdate();
 
-            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys = statement.getGeneratedKeys();
             if (generatedKeys.next()) {
-                return generatedKeys.getInt(1);
+                return (int)generatedKeys.getLong(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw new Exception("Failed to add TaskList to DB: " + taskList.toString());
         } finally {
+            if (generatedKeys != null) {
+                generatedKeys.close();
+            }
             if (statement != null) {
                 statement.close();
             }
+            if (conn != null) {
+                conn.close();
+            }
         }
-        return -1;
+        return -1;*/
     }
 }
