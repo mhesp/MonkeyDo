@@ -63,6 +63,10 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
         link: function (scope) {
             scope.selected = [];
 
+            scope.openMenu = function($mdOpenMenu, event) {
+                $mdOpenMenu(event);
+            };
+
             scope.addTask = function(list) {
                 var task = {'id':'-1', 'listId': list.taskList.listId,'taskName': scope.newtask, 'taskDueDate': null, 'taskCreatedDate': null, 'done': false};
 

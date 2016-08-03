@@ -70,10 +70,9 @@ main {
     box-shadow: none;
 }
 
-#btn-delete {
+#delete-task {
     color: black;
 }
-
 
 /* Styling for input field */
 
@@ -150,8 +149,8 @@ nav {
     width: 450px;
 }
 
-.modal-footer {
-    color: black;
+#create-list {
+    color: orange;
 }
 
 md-checkbox.md-checked ._md-icon {

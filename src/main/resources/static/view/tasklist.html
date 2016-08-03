@@ -5,7 +5,25 @@
                 <h5 id="list-header">{{list.taskList.listName}}</h5>
             </div>
             <div layout-align="end">
-                <i class="material-icons">more_horiz</i>
+                <md-menu>
+                    <md-button class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+                        <i class="material-icons">more_horiz</i>
+                    </md-button>
+                    <md-menu-content width="3">
+                        <md-menu-item>
+                            <md-button disabled="true">
+                                <i class="material-icons">delete_forever</i>
+                                &nbsp;&nbsp; Delete
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button disabled="true">
+                                <i class="material-icons">mode_edit</i>
+                                &nbsp;&nbsp; Rename list
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
             </div>
         </div>
         <div class="row">
@@ -23,7 +41,7 @@
                     <md-checkbox ng-checked="isDone(task)" ng-click="toggle(task)">{{ task.taskName }}</md-checkbox>
                 </label>
                 <md-button class="md-icon-button md-accent" id="btn-delete" ng-click="delete(task, list.tasks)">
-                    <md-icon md-font-icon="clear">clear</md-icon>
+                    <md-icon md-font-icon="clear" style="color:black">clear</md-icon>
                 </md-button>
             </div>
         </div>
