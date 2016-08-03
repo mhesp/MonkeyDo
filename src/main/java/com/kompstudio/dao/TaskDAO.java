@@ -77,6 +77,19 @@ public class TaskDAO {
         }
     }
 
+    public void deleteTasksFromList(int listId) throws Exception {
+        try {
+            String SQL = "DELETE FROM TASKS WHERE task_list_id = ?";
+            Object[] params = {listId};
+            int[] types = {Types.INTEGER};
+            int res = jdbcTemplate.update(SQL, params, types);
+            logger.info("DELETE. Rows updated [" + res + "]");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to delete tasks with listId [" + listId + "]");
+        }
+    }
+
     public void toggle(int id, boolean done) throws Exception {
         try {
             String SQL = "UPDATE tasks SET done = ? WHERE task_id = ?";

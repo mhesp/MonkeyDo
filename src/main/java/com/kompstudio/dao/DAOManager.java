@@ -23,7 +23,7 @@ public class DAOManager {
     JdbcTemplate jdbcTemplate;
 
     @Autowired
-    ToDoListDAO taskListDAO;
+    ToDoListDAO toDoListDAO;
 
     @Autowired
     TaskDAO taskDAO;
@@ -35,7 +35,7 @@ public class DAOManager {
 
     public List<Lists> loadUserList(int userId) throws Exception {
         logger.info("UserID [" + userId + "]");
-        List<ToDoList> lists = taskListDAO.getListsFromUserId(userId);
+        List<ToDoList> lists = toDoListDAO.getListsFromUserId(userId);
 
         List<Lists> res = new ArrayList<Lists>();
         for (ToDoList list : lists) {
@@ -51,7 +51,7 @@ public class DAOManager {
 
     public int saveList(ToDoList list) throws Exception {
         logger.info("Saving list [" + list.toString() + "]");
-        return taskListDAO.add(list);
+        return toDoListDAO.add(list);
     }
 
     public int saveTask(Task task) throws Exception {
@@ -67,6 +67,12 @@ public class DAOManager {
     public void deleteTask(Task task) throws Exception {
         logger.info("Deleting task [" + task.toString() + "]");
         taskDAO.delete(task);
+    }
+
+    public void deleteList(ToDoList list) throws Exception {
+        logger.info("Deleting list [" + list.toString() + "] with all tasks");
+        toDoListDAO.delete(list);
+        taskDAO.deleteTasksFromList(list.getListId());
     }
 
 }

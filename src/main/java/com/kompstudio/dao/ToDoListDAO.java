@@ -1,7 +1,10 @@
 package com.kompstudio.dao;
 
+import com.kompstudio.entities.Task;
 import com.kompstudio.entities.ToDoList;
 import com.kompstudio.mappers.ToDoListMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,6 +20,8 @@ public class ToDoListDAO {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    private Logger logger = LoggerFactory.getLogger(ToDoListDAO.class);
 
     public List<ToDoList> getListsFromUserId(int id) throws Exception {
         try {
@@ -59,5 +64,18 @@ public class ToDoListDAO {
             e.printStackTrace();
         }
         return -1;
+    }
+
+    public void delete(ToDoList list) throws Exception {
+        try {
+            String SQL = "DELETE FROM lists WHERE list_id = ?";
+            Object[] params = {list.getListId()};
+            int[] types = {Types.INTEGER};
+            int res = jdbcTemplate.update(SQL, params, types);
+            logger.info("DELETE. Rows updated [" + res + "]");
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Failed to delete list [" + list.toString() + "]");
+        }
     }
 }

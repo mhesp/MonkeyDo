@@ -90,6 +90,13 @@ app.directive('taskList', ['apiFactory', '$rootScope', function(apiFactory, $roo
                 apiFactory.deleteTask(task);
             };
 
+            scope.deleteList = function(list, index) {
+                console.log("Deleting list with listId [" + list.taskList.listId + "]");
+                apiFactory.deleteList(list.taskList);
+                $rootScope.lists.splice(index, 1);
+                
+            };
+
             scope.toggle = function(task) {
                 var isDone = task.done;
                 task.done = !isDone;

@@ -16,6 +16,10 @@ services.factory('apiFactory', ['$http', function ($http) {
     apiFactory.deleteTask = function (task) {
         return $http.put(urlBase + "/delete/task", task); 
     };
+
+    apiFactory.deleteList = function (list) {
+        return $http.put(urlBase + "/delete/list", list);
+    }
     
     apiFactory.saveList = function (list) {
         console.log("Saving list!");

@@ -32,6 +32,11 @@ public class MonkeyDoService {
         return daoManager.saveList(list);
     }
 
+    @RequestMapping(value = "/delete/list", method = RequestMethod.PUT, produces = "application/json")
+    public void deleteList(@RequestBody ToDoList list) throws Exception {
+        daoManager.deleteList(list);
+    }
+
     @RequestMapping(value = "/delete/task", method = RequestMethod.PUT, produces = "application/json")
     public void deleteTask(@RequestBody Task task) throws Exception {
         daoManager.deleteTask(task);
